@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
+@SuppressWarnings("serial")
 public class Main extends JFrame
 {
 	private JDesktopPane dtp = new JDesktopPane();
