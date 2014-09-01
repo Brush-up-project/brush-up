@@ -2,6 +2,8 @@ package view;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JDesktopPane;
@@ -11,9 +13,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 
-public class Main extends JFrame
+import controllere.MenuActionListener;
+import model.login;
+
+public class Main extends JFrame implements ActionListener
 {
 	private JDesktopPane dtp = new JDesktopPane();
+	private JMenu kalender;
 	JTabbedPane tabbedPane = new JTabbedPane();
     kalender firstp = new kalender();
     foredragsholdere secondp = new foredragsholdere();
@@ -34,8 +40,20 @@ public class Main extends JFrame
 	    JMenu kalender = new JMenu("File");
 	    kalender.setMnemonic(KeyEvent.VK_M);
 	    menuBar.add(kalender);
-	    JMenuItem newMenuItem = new JMenuItem("Logout");	    
-	    kalender.add(newMenuItem);
+	    if(login.GetInstance().IsLoggedIn() == true)
+    	{
+	    	JMenuItem newMenuItem = new JMenuItem("LogOut");
+        	newMenuItem.addActionListener(new MenuActionListener());
+        	kalender.add(newMenuItem);
+        	kalender.addActionListener(this);
+    	}
+	    else if(!login.GetInstance().IsLoggedIn())
+    	{
+    		JMenuItem newMenuItem = new JMenuItem("LogIn");
+	    	newMenuItem.addActionListener(new MenuActionListener());
+	    	kalender.add(newMenuItem);
+	    	kalender.addActionListener(this);
+    	}
 	    
 	    
 	    setJMenuBar(menuBar);
@@ -58,5 +76,16 @@ public class Main extends JFrame
             }
         });
 	}
-
+	public void LoginLogout()
+	{
+		
+	}
+	public void actionPerformed(ActionEvent e) 
+	{
+		if(e.getSource() == kalender)
+		{
+			this.LoginLogout();
+		}			
+	}
+	
 }
