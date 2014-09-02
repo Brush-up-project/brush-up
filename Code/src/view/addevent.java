@@ -1,52 +1,71 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Panel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
 
 public class addevent extends JFrame{
+	
+	JFrame f1;
+	JLabel lblfirstName,lbllastName,lblCity,lblState,lblMail;
+	JTextField txtfirstName,txtlastName,txtCity,txtState,txtMail;
+	JButton btnClear,btnClose,btnSave,btnDelete,btnUpdate,btnView;
+	JPanel p1,p2;
+	GridLayout gl42,gl21;
+	FlowLayout fl;
 		
 	public addevent()
 	{
-		JFrame frame = new JFrame("new frame");
-	    frame.setVisible(true);
-	    frame.setTitle("Kalender Event");
-	    frame.setSize(500, 750);
-	    frame.setLocationRelativeTo(null);
-	    frame.setResizable(false);	    
+		f1=new JFrame("Add Event");
 
-	    JPanel p = new JPanel(new BorderLayout());
-	    JPanel p1 = new JPanel();
-	    
-	    JLabel firstName = new JLabel("Fornavn", 10);
-	    JTextField firstnameText = new JTextField(10);
-	    JLabel lastName = new JLabel("Efternavn", 10);
-	    JTextField lastnameText = new JTextField(10);
-	    JLabel subject = new JLabel ("Emne", 10);
-	    JTextField subjectText = new JTextField(10);
-	    JLabel date = new JLabel ("Dato", 10);
-	    JTextField dateText = new JTextField(10);
-	    JLabel time = new JLabel ("Tid", 10);
-	    JTextField timeText = new JTextField(10);
-	    JButton submit = new JButton("Submit");
-	   
-	    
-	    p.add(firstName, BorderLayout.WEST);
-	    p.add(firstnameText, BorderLayout.EAST);
-	    
-	    p1.add(p);
-	    
+		lblfirstName=new JLabel("Fornavn :");
+		lbllastName=new JLabel("Efternavn :");
+		lblCity=new JLabel("Foredragsemne :");
+		lblState=new JLabel("Dato :");
+		lblMail=new JLabel("Tid :");
+		
+		txtfirstName=new JTextField(40);
+		txtlastName=new JTextField(40);
+		txtCity=new JTextField(40);
+		txtState=new JTextField(40);
+		txtMail=new JTextField(40);
+
+		btnClose=new JButton("Close");
+		btnSave=new JButton("Save");
+
+		p1=new JPanel();
+		p2=new JPanel();
+
+		gl42=new GridLayout(5,2);
+		gl21=new GridLayout(2,1);
+		fl=new FlowLayout();
+
+		p1.setLayout(gl42);
+		p1.add(lblfirstName);
+		p1.add(txtfirstName);
+		p1.add(lbllastName);
+		p1.add(txtlastName);
+		p1.add(lblCity);
+		p1.add(txtCity);
+		p1.add(lblState);
+		p1.add(txtState);
+		p1.add(lblMail);
+		p1.add(txtMail);
+
+		p2.setLayout(fl);
+		p2.add(btnSave);
+		p2.add(btnClose);
+		
+		f1.setLayout(gl21);
+		f1.add(p1);
+		f1.add(p2);
+		f1.setSize(400,200);
+		f1.setVisible(true);
+		f1.setLocationRelativeTo(null);
 	}
 }

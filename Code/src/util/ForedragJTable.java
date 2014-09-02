@@ -6,6 +6,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import model.Foredrag;
+import model.Speaker;
 
 @SuppressWarnings("serial")
 public class ForedragJTable extends JTable {
@@ -19,15 +20,15 @@ public class ForedragJTable extends JTable {
 	{
 		DefaultTableModel model = new DefaultTableModel();
 	
-		model.setColumnIdentifiers(new String[] {"Navn", "Dato","Emne", "Lokation", "ID"});
+		model.setColumnIdentifiers(new String[] {"Navn", "Emne","Dato", "Lokation", "ID"});
 		model.setRowCount(foredrag.size());
 		int row = 0;
-		for (Foredrag f : foredrag) {
-			model.setValueAt(f.getName(), row, 0);
-			model.setValueAt(f.getDato(), row, 1);
-			model.setValueAt(f.getEmne(), row, 2);
-			model.setValueAt(f.getLokation(), row, 3);
-			model.setValueAt(f.getId(), row, 4);
+		for (Foredrag s : foredrag) {
+			model.setValueAt(s.getName(), row, 0);
+			model.setValueAt(s.getEmne(), row, 1);
+			model.setValueAt(s.getDate(), row, 2);
+			model.setValueAt(s.getLocation(), row, 3);
+			model.setValueAt(s.getId(), row, 4);
 
 			row++;
 		}

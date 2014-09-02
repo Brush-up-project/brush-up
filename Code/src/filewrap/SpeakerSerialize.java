@@ -10,24 +10,19 @@ import java.util.ArrayList;
 
 import model.Speaker;
 
-//import model.Product;
-
-
 public class SpeakerSerialize {
 
-	private String filePath = "C:\\Users\\Desktop\\Desktop\\";
-	private String fileName = "Speakers.txt";
-	
+	private String fileName = "speaker.txt";
 	public String save(ArrayList<Speaker> speakers) {
 		
 		String errormsg = "";	
 
 		try
         {
-			File yourFile = new File(filePath + fileName);
+			File yourFile = new File(fileName);
 			yourFile.createNewFile();
 			
-	       FileOutputStream fileOut = new FileOutputStream(filePath + fileName, false);
+	       FileOutputStream fileOut = new FileOutputStream(fileName, false);
 	       ObjectOutputStream out = new ObjectOutputStream(fileOut);
 	         
     	   		out.writeObject(speakers);
@@ -50,7 +45,7 @@ public class SpeakerSerialize {
 		ArrayList<Speaker> groups = new ArrayList<Speaker>();
 	    try
 	    {
-	       FileInputStream fileIn = new FileInputStream(filePath + fileName);
+	       FileInputStream fileIn = new FileInputStream(fileName);
 	       ObjectInputStream in = new ObjectInputStream(fileIn);
 	       
     	   try {

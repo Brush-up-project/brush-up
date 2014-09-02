@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import controllere.MenuActionListener;
@@ -40,19 +41,23 @@ public class Main extends JFrame implements ActionListener
 	    JMenu kalender = new JMenu("File");
 	    kalender.setMnemonic(KeyEvent.VK_M);
 	    menuBar.add(kalender);
-	    if(login.GetInstance().IsLoggedIn() == true)
-    	{
+	    
+        
+	    if(login.GetInstance().IsLoggedIn())
+	    {
 	    	JMenuItem newMenuItem = new JMenuItem("LogOut");
         	newMenuItem.addActionListener(new MenuActionListener());
         	kalender.add(newMenuItem);
         	kalender.addActionListener(this);
+//        	EnableTabbedPane(true);
     	}
-	    else if(!login.GetInstance().IsLoggedIn())
+	    else if(login.GetInstance().IsLoggedIn() == false)
     	{
     		JMenuItem newMenuItem = new JMenuItem("LogIn");
 	    	newMenuItem.addActionListener(new MenuActionListener());
 	    	kalender.add(newMenuItem);
 	    	kalender.addActionListener(this);
+//	    	EnableTabbedPane(false);
     	}
 	    
 	    
@@ -77,9 +82,10 @@ public class Main extends JFrame implements ActionListener
         });
 	}
 	public void LoginLogout()
-	{
-		
+	{	
+
 	}
+
 	public void actionPerformed(ActionEvent e) 
 	{
 		if(e.getSource() == kalender)
@@ -87,5 +93,18 @@ public class Main extends JFrame implements ActionListener
 			this.LoginLogout();
 		}			
 	}
+	
+	public void EnableTabbedPane(boolean state)
+    {
+        if(state == true)
+        {
+        	tabbedPane.setEnabled(true);
+        }
+        else
+        {
+        	tabbedPane.setEnabled(false);
+        }
+    }
+
 	
 }

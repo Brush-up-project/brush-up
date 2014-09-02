@@ -9,25 +9,21 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import model.Foredrag;
-
-//import model.Product;
-
+import model.Speaker;
 
 public class ForedragSerialize {
 
-	private String filePath = "C:\\Users\\Desktop\\Desktop\\";
-	private String fileName = "Foredrag.txt";
-	
+	private String fileName = "foredrag.txt";
 	public String save(ArrayList<Foredrag> foredrag) {
 		
 		String errormsg = "";	
 
 		try
         {
-			File yourFile = new File(filePath + fileName);
+			File yourFile = new File(fileName);
 			yourFile.createNewFile();
 			
-	       FileOutputStream fileOut = new FileOutputStream(filePath + fileName, false);
+	       FileOutputStream fileOut = new FileOutputStream(fileName, false);
 	       ObjectOutputStream out = new ObjectOutputStream(fileOut);
 	         
     	   		out.writeObject(foredrag);
@@ -50,7 +46,7 @@ public class ForedragSerialize {
 		ArrayList<Foredrag> groups = new ArrayList<Foredrag>();
 	    try
 	    {
-	       FileInputStream fileIn = new FileInputStream(filePath + fileName);
+	       FileInputStream fileIn = new FileInputStream(fileName);
 	       ObjectInputStream in = new ObjectInputStream(fileIn);
 	       
     	   try {

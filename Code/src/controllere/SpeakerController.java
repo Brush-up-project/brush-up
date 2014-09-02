@@ -6,30 +6,47 @@ import model.Speaker;
 import filewrap.SpeakerSerialize;
 
 public class SpeakerController {
-	
-	private static ArrayList<Speaker> speakers = new ArrayList<Speaker>();
 	private static SpeakerSerialize dataAccess = new SpeakerSerialize();
+	private static ArrayList<Speaker> speakers = new ArrayList<Speaker>();
 	
-	public static void save(Speaker s)
+	
+	public static void save(Speaker p)
 	{
-		if(s.getId() == 0)
-		{
+		if (p.getId() == 0)
+		{//then it is new
 			int highestId = findHighestPersonId();
-			s.setId(highestId +1);
-			speakers.add(s);
+			p.setId(highestId +1);
+			speakers.add(p);
 		}
+		
+		dataAccess.save(speakers); //write to disk.
 	}
 	
-	// sørger for at ny foredragsholder får det korrekte nye ID
-	public static int findHighestPersonId()
+	
+	
+	private static int findHighestPersonId()
 	{
 		int highest = 0;
-		for (Speaker s : speakers)
+		for (Speaker p : speakers)
 		{
-			if (highest < s.getId())
-				highest = s.getId();
+			if (highest < p.getId())
+				highest = p.getId();
 		}
 		return highest;
+	}
+	
+	
+	
+	public static Speaker findSpeakerById(int speakerId) {
+		for (Speaker p : speakers)
+		{
+			if (p.getId() == speakerId)
+			{
+				return p;
+			}
+		}
+		
+		return null; //not found
 	}
 	
 	public static ArrayList<Speaker> getAllSpeakers()
@@ -39,11 +56,11 @@ public class SpeakerController {
 	}
 	
 	
-	public static void deleteProductById(int productId)
+	public static void deleteSpeakerById(int speakerId)
 	{
 		for (int i=0; i < speakers.size(); i++)
 		{
-			if (speakers.get(i).getId() == productId)
+			if (speakers.get(i).getId() == speakerId)
 			{
 				speakers.remove(i);
 				break;
@@ -53,49 +70,17 @@ public class SpeakerController {
 		dataAccess.save(speakers);
 	}
 	
-	// til søgefunktion i fordragsholdervinduet 
-	
-	public static ArrayList<Speaker> findSpeakersByName(String searchName) 
-	{
+	public static ArrayList<Speaker> findProductsByName(String searchName) {
+		ArrayList<Speaker> foundProducts = new ArrayList<Speaker>();
 		
-		ArrayList<Speaker> foundSpeakers = new ArrayList<Speaker>();
-		
-		for (Speaker s : speakers)
+		for (Speaker p : speakers)
 		{
-			if (s.getName().toLowerCase().contains(searchName.toLowerCase())){
-				foundSpeakers.add(s);
+			if (p.getName().toLowerCase().contains(searchName.toLowerCase())){
+				foundProducts.add(p);
 			}
 		}
 		
-		return foundSpeakers;
-	}
-	
-	// søgefunktion på foredragholders emne
-	
-	public static ArrayList<Speaker> findSpeakersByEmne(String searchEmne) 
-	{
-		
-		ArrayList<Speaker> foundSpeakers = new ArrayList<Speaker>();
-		
-		for (Speaker s : speakers)
-		{
-			if (s.getEmne().toLowerCase().contains(searchEmne.toLowerCase())){
-				foundSpeakers.add(s);
-			}
-		}
-		
-		return foundSpeakers;
-	}
-	public static Speaker findSpeakerById(int Id) 
-	{
-		for (Speaker s : speakers)
-		{
-			if (s.getId() == Id)
-			{
-				return s;
-			}
-		}
-		
-		return null; //not found
+		return foundProducts;
 	}
 }
+

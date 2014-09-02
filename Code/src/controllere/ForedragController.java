@@ -6,84 +6,81 @@ import model.Foredrag;
 import filewrap.ForedragSerialize;
 
 public class ForedragController {
+	private static ForedragSerialize dataAccess = new ForedragSerialize();
+	private static ArrayList<Foredrag> foredrag = new ArrayList<Foredrag>();
 	
-	private static ArrayList<Foredrag> foredragListe = new ArrayList<Foredrag>();
-	private static ForedragSerialize dataAccess2 = new ForedragSerialize();
 	
-	public static void save(Foredrag s)
+	public static void save(Foredrag p)
 	{
-		if(s.getId() == 0)
-		{
-			int highestId = findHighestId();
-			s.setId(highestId +1);
-			foredragListe.add(s);
+		if (p.getId() == 0)
+		{//then it is new
+			int highestId = findHighestPersonId();
+			p.setId(highestId +1);
+			foredrag.add(p);
 		}
+		
+		dataAccess.save(foredrag); //write to disk.
 	}
 	
-	// sørger for at nyt foredrag får det korrekte nye ID
-	public static int findHighestId()
+	
+	
+	private static int findHighestPersonId()
 	{
 		int highest = 0;
-		for (Foredrag s : foredragListe)
+		for (Foredrag p : foredrag)
 		{
-			if (highest < s.getId())
-				highest = s.getId();
+			if (highest < p.getId())
+				highest = p.getId();
 		}
 		return highest;
 	}
 	
+	
+	
+	public static Foredrag findForedragById(int foredragId) {
+		for (Foredrag p : foredrag)
+		{
+			if (p.getId() == foredragId)
+			{
+				return p;
+			}
+		}
+		
+		return null; //not found
+	}
+	
 	public static ArrayList<Foredrag> getAllForedrag()
 	{
-		foredragListe = dataAccess2.load();
-		return foredragListe;
+		foredrag = dataAccess.load();
+		return foredrag;
 	}
 	
 	
-	public static void deleteProductById(int productId)
+	public static void deleteForedragById(int foredragtId)
 	{
-		for (int i=0; i < foredragListe.size(); i++)
+		for (int i=0; i < foredrag.size(); i++)
 		{
-			if (foredragListe.get(i).getId() == productId)
+			if (foredrag.get(i).getId() == foredragtId)
 			{
-				foredragListe.remove(i);
+				foredrag.remove(i);
 				break;
 			}
 		}
 		
-		dataAccess2.save(foredragListe);
+		dataAccess.save(foredrag);
 	}
-	
-	// til søgefunktion i fordragsholdervinduet 
 	
 	public static ArrayList<Foredrag> findForedragByName(String searchName) {
-		
 		ArrayList<Foredrag> foundForedrag = new ArrayList<Foredrag>();
 		
-		for (Foredrag f : foredragListe)
+		for (Foredrag p : foredrag)
 		{
-			if (f.getName().toLowerCase().contains(searchName.toLowerCase())){
-				foundForedrag.add(f);
+			if (p.getName().toLowerCase().contains(searchName.toLowerCase())){
+				foundForedrag.add(p);
 			}
 		}
 		
 		return foundForedrag;
 	}
-	
-	// søgefunktion på foredragets dato
-	
-	public static ArrayList<Foredrag> findForedragByDato(String searchDato) {
-		
-		ArrayList<Foredrag> foundForedrag = new ArrayList<Foredrag>();
-		
-		for (Foredrag f : foredragListe)
-		{
-			if (f.getDato().contains(searchDato))
-			{
-				foundForedrag.add(f);
-			}
-		}
-		
-		return foundForedrag;
-	}
-
 }
+

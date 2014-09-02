@@ -5,32 +5,24 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Foredrag implements Serializable {
 	
-	private int idForedrag;
+	private int id;
 	private String name;
-	private String dato;
 	private String emne;
-	private String lokation;
+	private String date;
+	private String location;
 
 
 	public int getId() {
-		return idForedrag;
+		return id;
 	}
 	public void setId(int id) {
-		this.idForedrag = id;
+		this.id = id;
 	}
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
-	}
-	public String getDato() {
-		return dato;
-	}
-	public void setDato(String dato) {
-		this.dato = dato;
 	}
 	public String getEmne() {
 		return emne;
@@ -38,14 +30,17 @@ public class Foredrag implements Serializable {
 	public void setEmne(String emne) {
 		this.emne = emne;
 	}
-	public String getLokation()
-	{
-		return lokation;
+	public String getDate() {
+		return date;
 	}
-	public void setLokation(String lokation)
-	{
-		this.lokation = lokation; 
+	public void setDate(String date) {
+		this.date = date;
 	}
-	
+	public String getLocation(){
+		return location;
+	}
+	public void setLocation(String location){
+		this.location = location;
+	}
 }
 
